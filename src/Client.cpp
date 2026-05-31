@@ -16,17 +16,14 @@ void Client::addAccount(Account* account) {
 }
 
 void Client::removeAccount(std::string accountNumber) {
-    accounts.erase(
-        std::remove_if(
-            accounts.begin(),
-            accounts.end(),
-            [&accountNumber](Account* account) {
-                return account != nullptr &&
-                       account->getAccountNumber() == accountNumber;
-            }
-        ),
-        accounts.end()
-    );
+    for (int i = 0; i < accounts.size(); i++) {
+        if (accounts[i] != nullptr &&
+            accounts[i]->getAccountNumber() == accountNumber) {
+            
+            accounts.erase(accounts.begin() + i);
+            return;
+        }
+    }
 }
 
 std::vector<Account*> Client::getAccounts() const {
